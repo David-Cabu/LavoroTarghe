@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# EasyOCR models (pesanti, non servono su GitHub)
+.EasyOCR/
+
+# Temporanei
+targhe_db.json.tmp
+RicoscimentoTargaV0.py
+RicoscimentoTargaV1.py
+RicoscimentoTarga.py
+index.html
