@@ -7,6 +7,7 @@ import os
 import uuid
 import subprocess
 import threading
+import urllib.request
 
 warnings.filterwarnings("ignore", message=".*pin_memory.*")
 import easyocr
@@ -114,7 +115,7 @@ def db_print_summary(db: dict) -> None:
 # ============================================================
 # GIT PUSH — eseguito in background, non blocca l'OCR
 # ============================================================
-
+NETLIFY_HOOK="https://api.netlify.com/build_hooks/69bb03fc1e0b859fb381ded7"
 def _git_push_worker(message: str) -> None:
     """
     Esegue  git add targhe_db.json  →  git commit  →  git push
@@ -145,6 +146,14 @@ def _git_push_worker(message: str) -> None:
         print("  [git] ⚠  push timeout (rete assente?)")
     except Exception as e:
         print(f"  [git] ⚠  errore: {e}")
+        # trigger rebuild Netlify (~20-30 secondi e il sito è aggiornato)
+    try:
+        urllib.request.urlopen(
+            urllib.request.Request(NETLIFY_HOOK, method='POST', data=b'')
+        )
+        print("  [netlify] ✓ rebuild triggerato")
+    except Exception as e:
+        print(f"  [netlify] ⚠ {e}")
 
 
 def git_push_async(message: str) -> None:
