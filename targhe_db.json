@@ -47,6 +47,10 @@
     "f42a34fb-c331-476d-9426-1a04a1304a00": {
       "avvio": "2026/03/30-08:45:11:341",
       "fine": null
+    },
+    "4bcb4f07-64fc-4432-aae2-05ad97a307c5": {
+      "avvio": "2026/03/30-09:21:15:803",
+      "fine": null
     }
   },
   "targhe": [
@@ -91,6 +95,13 @@
       "timestamp": "2026/03/30-08:45:19:620",
       "confidenza": 0.4984,
       "sessione": "f42a34fb-c331-476d-9426-1a04a1304a00"
+    },
+    {
+      "id": "c5afa8d8-3708-41ea-958d-a196ab321af3",
+      "targa": "FK896E",
+      "timestamp": "2026/03/30-09:22:40:957",
+      "confidenza": 0.4659,
+      "sessione": "4bcb4f07-64fc-4432-aae2-05ad97a307c5"
     }
   ]
 }
