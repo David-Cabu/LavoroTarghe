@@ -135,13 +135,26 @@
       "timestamp": "2026/04/20-22:21:21:665",
       "confidenza": 0.3104,
       "sessione": "56395d03-781f-466f-b2a6-ce356622f5ba"
+    },
+    {
+      "id": "f33cb12e-6cb6-4ef4-a761-8d98cc857187",
+      "targa": "EV902DZ",
+      "timestamp": "2026/04/20-22:23:48:258",
+      "confidenza": 0.5329,
+      "sessione": "56395d03-781f-466f-b2a6-ce356622f5ba"
     }
   ],
   "utenti_registrati": [],
-  "parcheggio": {
-    "EV902DZ": {
-      "ingresso": "2026/04/20-22:21:21:665"
+  "parcheggio": {},
+  "transiti": [
+    {
+      "id": "7d433434-65d4-4676-ac79-d348fb61554b",
+      "targa": "EV902DZ",
+      "ingresso": "2026/04/20-22:21:21:665",
+      "uscita": "2026/04/20-22:23:48:258",
+      "durata_minuti": 2.4,
+      "pedaggio_euro": 0.08,
+      "autorizzato": false
     }
-  },
-  "transiti": []
+  ]
 }
