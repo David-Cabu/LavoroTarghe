@@ -149,12 +149,22 @@
       "timestamp": "2026/04/20-22:24:41:447",
       "confidenza": 0.4425,
       "sessione": "56395d03-781f-466f-b2a6-ce356622f5ba"
+    },
+    {
+      "id": "20868931-569f-4cbe-9cb2-725d9b06cef3",
+      "targa": "CX597NY",
+      "timestamp": "2026/04/20-22:26:41:866",
+      "confidenza": 0.7131,
+      "sessione": "56395d03-781f-466f-b2a6-ce356622f5ba"
     }
   ],
   "utenti_registrati": [],
   "parcheggio": {
     "GX597M": {
       "ingresso": "2026/04/20-22:24:41:447"
+    },
+    "CX597NY": {
+      "ingresso": "2026/04/20-22:26:41:866"
     }
   },
   "transiti": [
