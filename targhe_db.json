@@ -59,6 +59,10 @@
     "de995a73-cbbd-482c-a899-d2c26e1433a6": {
       "avvio": "2026/03/30-09:32:12:593",
       "fine": "2026/03/30-09:38:31:206"
+    },
+    "56395d03-781f-466f-b2a6-ce356622f5ba": {
+      "avvio": "2026/04/20-22:20:34:893",
+      "fine": null
     }
   },
   "targhe": [
@@ -124,6 +128,20 @@
       "timestamp": "2026/03/30-09:33:15:183",
       "confidenza": 0.9066,
       "sessione": "de995a73-cbbd-482c-a899-d2c26e1433a6"
+    },
+    {
+      "id": "e246af9d-98de-410d-8e8a-afffd57baaa7",
+      "targa": "EV902DZ",
+      "timestamp": "2026/04/20-22:21:21:665",
+      "confidenza": 0.3104,
+      "sessione": "56395d03-781f-466f-b2a6-ce356622f5ba"
     }
-  ]
+  ],
+  "utenti_registrati": [],
+  "parcheggio": {
+    "EV902DZ": {
+      "ingresso": "2026/04/20-22:21:21:665"
+    }
+  },
+  "transiti": []
 }
