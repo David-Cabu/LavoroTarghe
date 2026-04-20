@@ -28,11 +28,6 @@ REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(REPO_DIR, "targhe_db.json")
 # costruisce il percorso completo del file database, mettendolo nella stessa cartella dello script
 
-
-# ============================================================
-# NUOVE COSTANTI — OPZIONI AGGIUNTIVE
-# ============================================================
-
 # costo in euro per ogni ora di sosta nel parcheggio
 # esempio: 2.0 = 2€/ora → 30 minuti costano 1€
 TARIFFA_PER_ORA = 2.0
@@ -70,7 +65,7 @@ def db_load() -> dict:
         # aggiunge i nuovi campi che mancano senza perdere i dati già salvati.
         # setdefault(chiave, valore) aggiunge la chiave SOLO se non esiste già.
         db.setdefault("utenti_registrati", [])
-        # lista delle targhe pre-autorizzate; vuota di default, aggiungila a mano nel JSON
+        # lista delle targhe pre-autorizzate; vuota di default, da aggiungere a mano nel JSON
         db.setdefault("parcheggio", {})
         # dizionario dei veicoli attualmente dentro: chiave = targa, valore = {ingresso: timestamp}
         db.setdefault("transiti", [])
@@ -81,7 +76,7 @@ def db_load() -> dict:
     return {
         "sessioni":          {},
         "targhe":            [],
-        "utenti_registrati": [],   # aggiungi qui le targhe autorizzate, es: ["AB123CD", "XY789ZZ"]
+        "utenti_registrati": [],   # aggiungere targhe autorizzate, es: ["AB123CD", "XY789ZZ"]
         "parcheggio":        {},   # popolato automaticamente quando una targa entra
         "transiti":          []    # popolato automaticamente quando una targa esce
     }
@@ -164,7 +159,7 @@ def db_print_summary(db: dict) -> None:
         print(f"  ... e altri {total - 10} record nel file {DB_PATH}")
         # se ci sono più di 10 record totali, avvisa che gli altri sono nel file
 
-    # --- NUOVO: mostra anche i veicoli rimasti dentro e i transiti completati ---
+    # mostra anche i veicoli rimasti dentro e i transiti completati
 
     dentro = db.get("parcheggio", {})
     # recupera il dizionario dei veicoli attualmente dentro (può essere vuoto)
@@ -195,7 +190,7 @@ NETLIFY_HOOK = "https://api.netlify.com/build_hooks/69bb03fc1e0b859fb381ded7"
 # URL del webhook Netlify: chiamarlo con POST avvia un rebuild del sito
 
 def _git_push_worker(message: str) -> None:
-    # funzione che esegue i comandi git; il "_" davanti al nome indica che è "privata"
+    # funzione che esegue i comandi git;
     try:
         cmds = [
             ["git", "add", "targhe_db.json"],  # mette il file nel prossimo commit
@@ -332,7 +327,7 @@ def format_timestamp(dt: datetime) -> str:
 
 
 def parse_timestamp(ts: str) -> datetime:
-    # NUOVA funzione: converte un timestamp salvato nel database (stringa) in un oggetto datetime
+    # converte un timestamp salvato nel database (stringa) in un oggetto datetime
     # è l'operazione inversa di format_timestamp: da "2026/03/18-14:32:05:347" a datetime
     main, ms_str = ts.rsplit(':', 1)
     # divide la stringa all'ULTIMA ':' per separare i millisecondi dal resto
@@ -361,15 +356,14 @@ def format_plate_output(plate: str, dt: datetime) -> str:
 
 
 # ============================================================
-# NUOVE FUNZIONI — GESTIONE TRANSITI, BARRIERA E PEDAGGIO
+#   GESTIONE TRANSITI, BARRIERA E PEDAGGIO
 # ============================================================
 
 def gestisci_transito(db: dict, plate: str, now: datetime) -> dict:
-    # NUOVA funzione: decide se la targa sta ENTRANDO o USCENDO dal parcheggio
+    # decide se la targa sta ENTRANDO o USCENDO dal parcheggio
     # e salva il transito nel database.
-    #
-    # Logica semplice: se la targa NON è nel dizionario "parcheggio" → sta entrando.
-    #                  se la targa È già nel dizionario "parcheggio" → sta uscendo.
+    # se la targa NON è nel dizionario "parcheggio" → sta entrando.
+    # se la targa È già nel dizionario "parcheggio" → sta uscendo.
     # Questo funziona perché ogni targa può essere dentro UNA volta sola alla volta.
 
     if plate not in db["parcheggio"]:
@@ -433,18 +427,13 @@ def gestisci_transito(db: dict, plate: str, now: datetime) -> dict:
 
 
 def simula_apertura_barriera(plate: str) -> None:
-    # NUOVA funzione: simula l'apertura del cancello/barriera per le targhe autorizzate.
-    # In un sistema reale, qui si invierebbe un segnale digitale (es. GPIO su Raspberry Pi,
-    # una chiamata HTTP a un relay di rete, o un comando seriale a un Arduino).
-    # In questa versione simuliamo semplicemente stampando un messaggio in console.
+    # simula l'apertura del cancello/barriera per le targhe autorizzate.
+    # iViene simulata stampando un messaggio in console.
     print(f"  ╔══════════════════════════════════════╗")
-    print(f"  ║    BARRIERA APERTA                 ║")
+    print(f"  ║    BARRIERA APERTA                   ║")
     print(f"  ║  Targa autorizzata: {plate:<14}      ║")
     print(f"  ║  Accesso consentito                  ║")
     print(f"  ╚══════════════════════════════════════╝")
-    # qui potresti aggiungere, ad esempio:
-    # import requests; requests.post("http://192.168.1.50/apri")  ← relay di rete
-
 
 # ============================================================
 # LOCK PER L'OCR AUTOMATICO
@@ -472,7 +461,6 @@ ocr_result_img = [None]
 def run_ocr(img_gray, frame_color, db: dict, session_id: str, cooldown_targhe: dict):
     # funzione principale: esegue l'OCR e disegna i risultati sull'immagine.
     # AGGIORNATA rispetto alla versione precedente con: cooldown, ingresso/uscita, barriera.
-    #
     # Parametro nuovo: cooldown_targhe — dizionario {targa: datetime_ultima_rilevazione}
     # serve a tenere traccia di quando ogni targa è stata rilevata l'ultima volta,
     # così evitiamo di registrarla 50 volte se rimane ferma davanti alla telecamera.
@@ -576,7 +564,7 @@ def run_ocr(img_gray, frame_color, db: dict, session_id: str, cooldown_targhe: d
                 cv2.putText(out, f"USCITA  EUR {pedaggio:.2f}",
                             (x_min, y_min - 30),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 140, 255), 2)
-                # scrive sull'immagine "USCITA  EUR 1.50" (o qualsiasi cifra)
+                # scrive sull'immagine "USCITA  EUR n.nn"
                 cv2.putText(out, f"{durata} min",
                             (x_min, y_min - 52),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 140, 255), 1)
@@ -585,7 +573,6 @@ def run_ocr(img_gray, frame_color, db: dict, session_id: str, cooldown_targhe: d
             # 3. controlla se la targa è nella lista degli utenti autorizzati
             if cleaned in db.get("utenti_registrati", []):
                 # "utenti_registrati" è una lista nel database: contiene le targhe pre-autorizzate
-                # es. abbonati mensili, dipendenti, residenti, ecc.
                 simula_apertura_barriera(cleaned)
                 # chiama la funzione che simula l'apertura del cancello
 
