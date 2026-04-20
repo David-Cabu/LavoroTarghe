@@ -142,10 +142,21 @@
       "timestamp": "2026/04/20-22:23:48:258",
       "confidenza": 0.5329,
       "sessione": "56395d03-781f-466f-b2a6-ce356622f5ba"
+    },
+    {
+      "id": "4b8a5fb5-c4dc-4cb2-9b46-f5004dad1284",
+      "targa": "GX597M",
+      "timestamp": "2026/04/20-22:24:41:447",
+      "confidenza": 0.4425,
+      "sessione": "56395d03-781f-466f-b2a6-ce356622f5ba"
     }
   ],
   "utenti_registrati": [],
-  "parcheggio": {},
+  "parcheggio": {
+    "GX597M": {
+      "ingresso": "2026/04/20-22:24:41:447"
+    }
+  },
   "transiti": [
     {
       "id": "7d433434-65d4-4676-ac79-d348fb61554b",
