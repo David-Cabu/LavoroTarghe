@@ -517,12 +517,6 @@
       <!-- i chip delle targhe vengono generati dinamicamente da JavaScript -->
     </div>
 
-    <p style="margin-top:24px;font-size:.7rem;color:var(--text-dim);letter-spacing:1px;line-height:1.8">
-      Per aggiungere o rimuovere targhe autorizzate, modifica il campo
-      <span style="font-family:'Share Tech Mono',monospace;color:var(--green)">"utenti_registrati"</span>
-      nel file <span style="font-family:'Share Tech Mono',monospace;color:var(--green)">targhe_db.json</span>
-      nel repository GitHub.
-    </p>
   </div>
 
 </main>
@@ -831,7 +825,7 @@
 
     if (registeredPlates.length === 0) {
       list.innerHTML = `<p style="color:var(--text-dim);font-size:.8rem;letter-spacing:1px">
-        Nessuna targa autorizzata — aggiungi targhe al campo "utenti_registrati" nel JSON
+        Nessuna targa autorizzata
       </p>`;
       return;
     }
